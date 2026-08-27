@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nombre": "Climatización",
+    "descripcion": "Equipos de aire acondicionado y calefacción"
+  },
+  {
+    "id": 2,
+    "nombre": "Iluminación",
+    "descripcion": "Luminarias LED y paneles de bajo consumo"
+  },
+  {
+    "id": 3,
+    "nombre": "Medición y Control",
+    "descripcion": "Sensores y medidores de energía eléctrica"
+  }
+]

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ dispositivo.nombre }} | EcoEnergy{% endblock %}
+
+{% block content %}
+    <h2>Detalle del Dispositivo</h2>
+    <p><strong>ID:</strong> {{ dispositivo.id }}</p>
+    <p><strong>Nombre:</strong> {{ dispositivo.nombre }}</p>
+    <p><strong>Estado:</strong> {{ dispositivo.estado }}</p>
+    <p><strong>Consumo:</strong> {{ dispositivo.consumo_kwh }} kWh</p>
+
+    <a href="{% url 'dispositivos:catalogo' %}">← Volver al catálogo</a>
+{% endblock %}
