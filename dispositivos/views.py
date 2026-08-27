@@ -1,29 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from .services import cargar_dispositivos, cargar_zonas, obtener_detalle_zona
+from .services import cargar_zonas, obtener_detalle_zona, obtener_resumen_zonas
 
 def inicio(request):
     zonas = cargar_zonas()
-    contexto = {
-        "sistema": "EcoEnergy",
-        "mensaje": "Monitoreo energético responsable",
-        "asignatura": "Programación Back End",
-        "zonas": zonas,
-    }
-    return render(request, "dispositivos/inicio.html", contexto)
-
-def catalogo(request):
-    dispositivos = cargar_dispositivos()
-    activos = sum(1 for item in dispositivos if item.get("estado") == "Activo")
-    contexto = {
-        "dispositivos": dispositivos,
-        "total": len(dispositivos),
-        "total_activos": activos,
-    }
-    return render(request, "dispositivos/catalogo.html", contexto)
+    return render(request, "dispositivos/inicio.html", {"zonas": zonas})
 
 def detalle_zona(request, zona_id):
-    datos_zona = obtener_detalle_zona(zona_id)
-    if not datos_zona:
-        raise Http404("Zona no encontrada")
-    return render(request, "dispositivos/detalle_zona.html", datos_zona)
+    detalle = obtener_detalle_zona(zona_id)
+    if not detalle:
+        raise Http404("La zona solicitada no existe.")
+    return render(request, "dispositivos/detalle_zona.html", detalle)
+
+def resumen_zonas(request):
+    resumen, totales = obtener_resumen_zonas()
+    context = {
+        "resumen_zonas": resumen,
+        "totales": totales,
+    }
+    return render(request, "dispositivos/resumen_zonas.html", context)

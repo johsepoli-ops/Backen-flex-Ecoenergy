@@ -19,3 +19,12 @@
 - Comprobación del servidor Django en ejecución continua (`http://127.0.0.1:8000/`).
 - Verificación de renderizado de la ruta raíz (`/`) y del catálogo de dispositivos (`/dispositivos/`).
 - Comprobación del cálculo dinámico de dispositivos totales y activos.
+
+## Fase 2: Resumen de Consumo por Zona
+- **Herramienta:** Gemini
+- **Prompts utilizados:**
+  - Consulta para implementar la regla de negocio de estados `DENTRO DEL LÍMITE` y `LÍMITE SUPERADO` con separación MVT.
+  - Asistencia en la resolución del cierre del servidor de desarrollo con autoreload en Python.
+- **Cambios propios y verificación:**
+  - Se probó la vista `/resumen-zonas/` en el navegador verificando los tres totales generales y la tabla de resumen.
+  - Se confirmó el cumplimiento de la regla 3.3 con zonas con consumo sobre y bajo el límite.

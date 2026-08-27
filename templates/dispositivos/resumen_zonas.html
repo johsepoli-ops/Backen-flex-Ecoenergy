@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Resumen de Consumo por Zona | EcoEnergy{% endblock %}
+
+{% block content %}
+<!-- Título y subtítulo según boceto -->
+<div class="mb-4">
+    <h2 class="fw-bold mb-1">Resumen de consumo por zona</h2>
+    <p class="text-muted small mb-0">Datos agrupados desde zonas.json y dispositivos.json</p>
+</div>
+
+<!-- Tres tarjetas de totales generales -->
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm p-3 h-100" style="background-color: #e8f5e9; border-radius: 8px;">
+            <div class="text-uppercase fw-bold small text-success" style="letter-spacing: 0.5px;">ZONAS</div>
+            <div class="fs-2 fw-bold text-dark mt-1">{{ totales.total_zonas }}</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm p-3 h-100" style="background-color: #e3f2fd; border-radius: 8px;">
+            <div class="text-uppercase fw-bold small text-primary" style="letter-spacing: 0.5px;">DISPOSITIVOS</div>
+            <div class="fs-2 fw-bold text-dark mt-1">{{ totales.total_dispositivos }}</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm p-3 h-100" style="background-color: #fff9c4; border-radius: 8px;">
+            <div class="text-uppercase fw-bold small" style="color: #f57f17; letter-spacing: 0.5px;">CONSUMO TOTAL</div>
+            <div class="fs-2 fw-bold text-dark mt-1">{{ totales.total_consumo }} kWh</div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla responsive de resumen -->
+<div class="table-responsive shadow-sm border rounded bg-white p-2">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th scope="col" class="py-3 ps-3">Zona</th>
+                <th scope="col" class="py-3">Dispositivos</th>
+                <th scope="col" class="py-3">Consumo</th>
+                <th scope="col" class="py-3">Límite</th>
+                <th scope="col" class="py-3 text-center">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in resumen_zonas %}
+            <tr>
+                <td class="ps-3 fw-semibold">{{ item.nombre }}</td>
+                <td>{{ item.cantidad_dispositivos }}</td>
+                <td>{{ item.consumo_total }} kWh</td>
+                <td>{{ item.limite_kwh }} kWh</td>
+                <td class="text-center">
+                    {% if item.clase_estado == "danger" %}
+                        <span class="badge border border-danger text-danger bg-danger-subtle px-3 py-2 rounded-pill fw-bold" style="font-size: 0.85rem;">
+                            {{ item.estado }}
+                        </span>
+                    {% else %}
+                        <span class="badge border border-success text-success bg-success-subtle px-3 py-2 rounded-pill fw-bold" style="font-size: 0.85rem;">
+                            {{ item.estado }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center text-muted py-4">
+                    No existen zonas disponibles para mostrar resumen.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<p class="text-muted small mt-3 fst-italic">Boceto referencial: se evalúan contenido, jerarquía y legibilidad; no una copia exacta.</p>
+{% endblock %}
